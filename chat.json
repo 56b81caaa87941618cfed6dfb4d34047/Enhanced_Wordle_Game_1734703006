@@ -253,5 +253,15 @@
         "source": "smart_contract_assistant",
         "content": "The footer component has been updated to interact with the WordleBet smart contract. Would you like any further modifications or need assistance with something else?",
         "metadata": {}
+    },
+    {
+        "id": "a0bd1dc8-9d89-48de-bac8-9a31f3909b81",
+        "timestamp": "2024-12-20T14:13:37.102333Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "what is word hash?",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

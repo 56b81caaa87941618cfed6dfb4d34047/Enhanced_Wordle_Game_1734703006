@@ -1039,5 +1039,15 @@
         "source": "base_assistant",
         "content": "I have confirmed the modification of the WordleBet_v1 contract to select a random word automatically. The contract has been updated successfully.\n\nPlease deploy the updated contract and verify if everything functions as expected. If you need any further assistance, feel free to let me know.",
         "metadata": {}
+    },
+    {
+        "id": "0c1b067d-e026-4e99-b236-e0d27780c75f",
+        "timestamp": "2024-12-20T15:08:31.867896Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "Failed to create game. GameCreated event not found in transaction receipt",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

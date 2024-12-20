@@ -6,10 +6,10 @@ const contractAddress = '0x1625d8B9A57c747515566b52Fe3aE1277b98567b';
 const chainId = 17000;
 
 const abi = [
-  "function createGame(bytes32 _wordHash) external payable",
+  "function createGame() external payable",
   "function acceptGame(uint256 _gameId) external payable",
   "function makeGuess(uint256 _gameId, string calldata _guess) external",
-  "function games(uint256) public view returns (address creator, address player, uint256 betAmount, bytes32 wordHash, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
+  "function games(uint256) public view returns (address creator, address player, uint256 betAmount, string memory word, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
 ];
 
 const WordleBetGame: React.FC = () => {
@@ -85,16 +85,13 @@ const WordleBetGame: React.FC = () => {
         return;
       }
 
-      const selectedWord = getRandomWord();
-      const wordHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(selectedWord));
-
       const parsedBetAmount = ethers.utils.parseEther(betAmount);
       const estimatedGas = await executeWithRetry(() => 
-        contract.estimateGas.createGame(wordHash, { value: parsedBetAmount })
+        contract.estimateGas.createGame({ value: parsedBetAmount })
       );
       const gasWithBuffer = estimatedGas.mul(120).div(100);
       const tx = await executeWithRetry(() => 
-        contract.createGame(wordHash, { value: parsedBetAmount, gasLimit: gasWithBuffer })
+        contract.createGame({ value: parsedBetAmount, gasLimit: gasWithBuffer })
       );
       const receipt = await tx.wait();
       
@@ -102,8 +99,7 @@ const WordleBetGame: React.FC = () => {
       if (event) {
         const newGameId = event.args.gameId.toString();
         setGameId(newGameId);
-        setCreatedGames(prev => ({ ...prev, [newGameId]: selectedWord }));
-        setGameStatus(`Game created successfully! Game ID: ${newGameId}, Secret Word: ${selectedWord}`);
+        setGameStatus(`Game created successfully! Game ID: ${newGameId}`);
       } else {
         throw new Error('GameCreated event not found in transaction receipt');
       }
@@ -199,7 +195,6 @@ const WordleBetGame: React.FC = () => {
         Active: ${game.isActive}
         Completed: ${game.isFinished}
         Winner: ${game.winner || 'No winner yet'}
-        ${createdGames[gameId] ? `Secret Word: ${createdGames[gameId]}` : ''}
       `;
       setGameStatus(status);
       await updateGameGuesses();

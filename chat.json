@@ -462,5 +462,15 @@
         "source": "base_assistant",
         "content": "Please select the `Hero1734703009` component to allow me to fix the formatting issue with the bet amount.",
         "metadata": {}
+    },
+    {
+        "id": "6bd4d924-a4fa-4221-94de-da4ee26c0568",
+        "timestamp": "2024-12-20T14:32:45.184831Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "now",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

@@ -515,5 +515,20 @@
         "metadata": {
             "component_id": "Hero1734703009"
         }
+    },
+    {
+        "id": "7c355747-def8-4bb8-a02f-4a6ba95fa845",
+        "timestamp": "2024-12-20T14:34:12.624172Z",
+        "role": "tool_call",
+        "source": "base_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_blcsz2UqMMeg5bp5cYrmDbgb",
+            "function": {
+                "arguments": "{\"component_id\": \"Hero1734703009\", \"change_description\": \"Adjust `createGame` function to properly format `betAmount` value to ethers.utils.parseUnits function.\", \"acknowledgement_message\": \"I'm updating the Hero component to properly format the betAmount value...\"}",
+                "name": "EditFrontendComponent"
+            },
+            "type": "function"
+        }
     }
 ]

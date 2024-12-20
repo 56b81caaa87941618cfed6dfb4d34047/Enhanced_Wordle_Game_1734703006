@@ -332,5 +332,15 @@
         "source": "base_assistant",
         "content": "You do not need to provide the word hash yourself. The contract automatically selects and hashes the word for you. Players just interact with the game by submitting their guesses and the contract handles the rest. There's no user input required for the word hash.",
         "metadata": {}
+    },
+    {
+        "id": "e07dbda7-ff4e-4b7e-bb3e-6b6f8acc5c18",
+        "timestamp": "2024-12-20T14:15:18.045070Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "but I should be able to see how I am performing right?",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

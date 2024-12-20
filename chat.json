@@ -1141,5 +1141,15 @@
         "source": "tool:EditFrontendComponent",
         "content": "Generating a new smart contract that automatically selects words and implements requested logic...",
         "metadata": {}
+    },
+    {
+        "id": "4c1e95ce-3ccb-4da6-821a-37c0438c9b3b",
+        "timestamp": "2024-12-20T15:16:40.589742Z",
+        "role": "tool_result",
+        "source": "EditFrontendComponent",
+        "content": "@@ -1,10 +1,71 @@\n import React from 'react';\n+import { ethers } from 'ethers';\n \n const Header: React.FC = () => {\n+  const [contractAddress, setContractAddress] = React.useState<string>('');\n+\n+  const deployContract = async () => {\n+    try {\n+      const provider = new ethers.providers.Web3Provider(window.ethereum);\n+      const signer = provider.getSigner();\n+\n+      const contractFactory = new ethers.ContractFactory(\n+        [\n+          \"event WordSelected(string word)\",\n+          \"function selectWord() public\",\n+          \"function getWord() public view returns (string memory)\"\n+        ],\n+        `\n+        pragma solidity ^0.8.0;\n+\n+        contract WordleContract {\n+            string private word;\n+            string[] private wordList = [\"APPLE\", \"HOUSE\", \"PLANT\", \"SMILE\", \"BEACH\"];\n+\n+            event WordSelected(string word);\n+\n+            function selectWord() public {\n+                uint256 randomIndex = uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))) % wordList.length;\n+                word = wordList[randomIndex];\n+                emit WordSelected(word);\n+            }\n+\n+            function getWord() public view returns (string memory) {\n+                return word;\n+            }\n+        }\n+        `,\n+        signer\n+      );\n+\n+      const contract = await contractFactory.deploy();\n+      await contract.deployed();\n+\n+      setContractAddress(contract.address);\n+      console.log(\"Contract deployed to:\", contract.address);\n+    } catch (error) {\n+      console.error(\"Error deploying contract:\", error);\n+    }\n+  };\n+\n   return (\n-    <header className=\"bg-blue-500 text-white p-4 w-full h-full\"> {/* Full width and height */}\n+    <header className=\"bg-blue-500 text-white p-4 w-full h-full\">\n       <div className=\"container mx-auto flex justify-between items-center h-full\">\n         <div className=\"text-2xl font-bold\">WordlePlus</div>\n+        <div className=\"flex items-center\">\n+          <button\n+            onClick={deployContract}\n+            className=\"bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md flex items-center\"\n+          >\n+            <i className='bx bx-cube-alt mr-2'></i>\n+            Deploy Contract\n+          </button>\n+          {contractAddress && (\n+            <div className=\"ml-4 text-sm\">\n+              Contract Address: {contractAddress}\n+            </div>\n+          )}\n+        </div>\n       </div>\n     </header>\n   );\n",
+        "metadata": {
+            "tool_call_id": "call_t3pIvNZ3oNRst8tCrVVOHIhh"
+        }
     }
 ]

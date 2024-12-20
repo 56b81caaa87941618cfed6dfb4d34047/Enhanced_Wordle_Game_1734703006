@@ -548,5 +548,13 @@
         "metadata": {
             "tool_call_id": "call_blcsz2UqMMeg5bp5cYrmDbgb"
         }
+    },
+    {
+        "id": "4367e4c3-8d51-497d-9596-ced0cd030da6",
+        "timestamp": "2024-12-20T14:34:21.674498Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "I've adjusted the `createGame` function to properly format the `betAmount` value. Please check if the issue is resolved now. If the problem persists, it might be related to the backend or smart contract implementation.",
+        "metadata": {}
     }
 ]

@@ -676,5 +676,15 @@
         "source": "base_assistant",
         "content": "I've enhanced the error handling and logging in the `createGame` function to capture more detailed information. Please try creating a game again and let me know if more details about the error help us understand the problem better.",
         "metadata": {}
+    },
+    {
+        "id": "bc41db1b-c51d-4390-b7e2-d2e344be477e",
+        "timestamp": "2024-12-20T14:42:27.808942Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "Failed to create game. invalid arrayify value (argument=\"value\", value={\"value\":{\"_hex\":\"0x470de4df820000\",\"_isBigNumber\":true}}, code=INVALID_ARGUMENT, version=bytes/5.0.0-beta.138) what does i means? I am writing 0.02",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

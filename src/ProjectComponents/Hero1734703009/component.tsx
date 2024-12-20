@@ -103,7 +103,7 @@ const WordleBetGame: React.FC = () => {
         const newGameId = event.args.gameId.toString();
         setGameId(newGameId);
         setCreatedGames(prev => ({ ...prev, [newGameId]: selectedWord }));
-        setGameStatus(`Game created successfully! Game ID: ${newGameId}`);
+        setGameStatus(`Game created successfully! Game ID: ${newGameId}, Secret Word: ${selectedWord}`);
       } else {
         throw new Error('GameCreated event not found in transaction receipt');
       }

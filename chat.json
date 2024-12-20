@@ -314,5 +314,15 @@
         "source": "base_assistant",
         "content": "Correct, in the WordleBet contract, the word is randomly selected from a predefined list of words by the contract itself, and not chosen by the user. The contract generates a random index to pick a word from this list and hashes the word to keep it secure.",
         "metadata": {}
+    },
+    {
+        "id": "c67a9db9-bc43-405a-aa78-735defaf5945",
+        "timestamp": "2024-12-20T14:14:43.620237Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "then what am i suppose to write on word hash?",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

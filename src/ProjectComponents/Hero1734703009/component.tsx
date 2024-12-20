@@ -69,6 +69,12 @@ const WordleBetGame: React.FC = () => {
       return;
     }
     try {
+      // Input validation for betAmount
+      if (!/^\d+(\.\d+)?$/.test(betAmount)) {
+        setGameStatus('Invalid bet amount. Please use a period as the decimal separator.');
+        return;
+      }
+
       const parsedBetAmount = ethers.utils.parseEther(betAmount);
       const estimatedGas = await executeWithRetry(() => 
         contract.estimateGas.createGame({ value: parsedBetAmount })

@@ -69,7 +69,6 @@ const WordleBetGame: React.FC = () => {
       return;
     }
     try {
-      // No need for wordHash parameter as the contract selects the word
       const parsedBetAmount = ethers.utils.parseEther(betAmount);
       const estimatedGas = await executeWithRetry(() => 
         contract.estimateGas.createGame({ value: parsedBetAmount })
@@ -80,15 +79,28 @@ const WordleBetGame: React.FC = () => {
       );
       const receipt = await tx.wait();
       
-      // Get gameId from event
       const event = receipt.events?.find(e => e.event === 'GameCreated');
       if (event) {
         setGameId(event.args.gameId.toString());
         setGameStatus(`Game created successfully! Game ID: ${event.args.gameId.toString()}`);
+      } else {
+        throw new Error('GameCreated event not found in transaction receipt');
       }
     } catch (error) {
       console.error('Error creating game:', error);
-      setGameStatus('Failed to create game. Check console for details.');
+      let errorMessage = 'Failed to create game. ';
+      if (error instanceof Error) {
+        errorMessage += error.message;
+      } else {
+        errorMessage += 'Unknown error occurred';
+      }
+      setGameStatus(errorMessage);
+      
+      // Log additional details
+      console.log('Contract address:', contractAddress);
+      console.log('Bet amount:', betAmount);
+      console.log('Signer address:', await signer.getAddress());
+      console.log('Network:', await signer.provider.getNetwork());
     }
   };
 

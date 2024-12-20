@@ -41,5 +41,13 @@
         "metadata": {
             "tool_call_id": "call_ysEsdn5h5BoPkIqHWoDLfAtp"
         }
+    },
+    {
+        "id": "ae4d73a2-4e5a-478f-8b5a-d273ffed5d49",
+        "timestamp": "2024-12-20T14:03:36.548082Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "Could you please provide more details about the smart contract you want to prepare? Specifically, I need to know the functionalities and features you'd like it to have.",
+        "metadata": {}
     }
 ]

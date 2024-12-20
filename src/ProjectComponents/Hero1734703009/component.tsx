@@ -9,7 +9,8 @@ const abi = [
   "function createGame() external payable",
   "function acceptGame(uint256 _gameId) external payable",
   "function makeGuess(uint256 _gameId, string calldata _guess) external",
-  "function games(uint256) public view returns (address creator, address player, uint256 betAmount, string memory word, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
+  "function games(uint256) public view returns (address creator, address player, uint256 betAmount, string memory word, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)",
+  "event GameCreated(uint256 indexed gameId, address indexed creator, uint256 betAmount)"
 ];
 
 const WordleBetGame: React.FC = () => {
@@ -92,14 +93,18 @@ const WordleBetGame: React.FC = () => {
       const gasWithBuffer = estimatedGas.mul(120).div(100);
       const tx = await executeWithRetry(() => 
         contract.createGame({ value: parsedBetAmount, gasLimit: gasWithBuffer })
+        contract.createGame({ value: parsedBetAmount, gasLimit: gasWithBuffer })
       );
       const receipt = await tx.wait();
       
-      const event = receipt.events?.find(e => e.event === 'GameCreated');
-      if (event) {
+      const event = receipt.events?.find((e: any) => e.event === 'GameCreated');
+      if (event && event.args) {
         const newGameId = event.args.gameId.toString();
         setGameId(newGameId);
         setGameStatus(`Game created successfully! Game ID: ${newGameId}`);
+        
+        // Store the created game
+        setCreatedGames(prevGames => ({...prevGames, [newGameId]: getRandomWord()}));
       } else {
         throw new Error('GameCreated event not found in transaction receipt');
       }
@@ -222,10 +227,16 @@ const WordleBetGame: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen p-5">
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-5">
-        <h1 className="text-3xl font-bold mb-5">WordleBet Game</h1>
+        <h1 className="text-3xl font-bold mb-5 flex items-center">
+          <i className='bx bxs-game mr-2 text-blue-500'></i>
+          WordleBet Game
+        </h1>
         
         <div className="mb-5">
-          <h2 className="text-xl font-semibold mb-2">Create Game</h2>
+          <h2 className="text-xl font-semibold mb-2 flex items-center">
+            <i className='bx bx-plus-circle mr-2 text-green-500'></i>
+            Create Game
+          </h2>
           <input
             type="text"
             placeholder="Bet Amount (ETH)"
@@ -233,13 +244,17 @@ const WordleBetGame: React.FC = () => {
             value={betAmount}
             onChange={(e) => setBetAmount(e.target.value)}
           />
-          <button onClick={createGame} className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+          <button onClick={createGame} className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 flex items-center justify-center">
+            <i className='bx bx-play mr-2'></i>
             Create Game
           </button>
         </div>
 
         <div className="mb-5">
-          <h2 className="text-xl font-semibold mb-2">Accept Game</h2>
+          <h2 className="text-xl font-semibold mb-2 flex items-center">
+            <i className='bx bx-check-circle mr-2 text-green-500'></i>
+            Accept Game
+          </h2>
           <input
             type="text"
             placeholder="Game ID"
@@ -247,13 +262,17 @@ const WordleBetGame: React.FC = () => {
             value={gameId}
             onChange={(e) => setGameId(e.target.value)}
           />
-          <button onClick={acceptGame} className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600">
+          <button onClick={acceptGame} className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600 flex items-center justify-center">
+            <i className='bx bx-check mr-2'></i>
             Accept Game
           </button>
         </div>
 
         <div className="mb-5">
-          <h2 className="text-xl font-semibold mb-2">Make Guess</h2>
+          <h2 className="text-xl font-semibold mb-2 flex items-center">
+            <i className='bx bx-bulb mr-2 text-yellow-500'></i>
+            Make Guess
+          </h2>
           <input
             type="text"
             placeholder="Game ID"
@@ -269,13 +288,17 @@ const WordleBetGame: React.FC = () => {
             onChange={(e) => setGuess(e.target.value)}
             maxLength={5}
           />
-          <button onClick={submitGuess} className="w-full bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600">
+          <button onClick={submitGuess} className="w-full bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 flex items-center justify-center">
+            <i className='bx bx-send mr-2'></i>
             Submit Guess
           </button>
         </div>
 
         <div className="mb-5">
-          <h2 className="text-xl font-semibold mb-2">Get Game Status</h2>
+          <h2 className="text-xl font-semibold mb-2 flex items-center">
+            <i className='bx bx-info-circle mr-2 text-purple-500'></i>
+            Get Game Status
+          </h2>
           <input
             type="text"
             placeholder="Game ID"
@@ -283,18 +306,25 @@ const WordleBetGame: React.FC = () => {
             value={gameId}
             onChange={(e) => setGameId(e.target.value)}
           />
-          <button onClick={getGameStatus} className="w-full bg-purple-500 text-white p-2 rounded hover:bg-purple-600">
+          <button onClick={getGameStatus} className="w-full bg-purple-500 text-white p-2 rounded hover:bg-purple-600 flex items-center justify-center">
+            <i className='bx bx-refresh mr-2'></i>
             Get Status
           </button>
         </div>
 
         <div className="mt-5 p-3 bg-gray-100 rounded">
-          <h2 className="text-xl font-semibold mb-2">Game Status:</h2>
+          <h2 className="text-xl font-semibold mb-2 flex items-center">
+            <i className='bx bx-detail mr-2 text-blue-500'></i>
+            Game Status:
+          </h2>
           <pre className="whitespace-pre-wrap">{gameStatus}</pre>
         </div>
 
         <div className="mt-5 p-3 bg-gray-100 rounded">
-          <h2 className="text-xl font-semibold mb-2">Your Guesses:</h2>
+          <h2 className="text-xl font-semibold mb-2 flex items-center">
+            <i className='bx bx-history mr-2 text-green-500'></i>
+            Your Guesses:
+          </h2>
           {playerGuesses.map((guessObj, index) => (
             <div key={index} className="flex items-center justify-between mb-2 p-2 bg-white rounded">
               <span className="font-mono">{guessObj.word}</span>
@@ -305,6 +335,9 @@ const WordleBetGame: React.FC = () => {
       </div>
     </div>
   );
+};
+
+export { WordleBetGame as component };
 };
 
 export { WordleBetGame as component };

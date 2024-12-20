@@ -755,5 +755,13 @@
         "metadata": {
             "tool_call_id": "call_ZZtE049Y1kvquBPOqG5XaMCb"
         }
+    },
+    {
+        "id": "8543afa4-de8f-4738-a621-847449923f5c",
+        "timestamp": "2024-12-20T14:44:55.441823Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "I've added input validation to ensure the `betAmount` uses a period as the decimal separator. Please try again using a period (`.`) for decimal points and see if the issue is resolved. If the problem persists, let me know and we'll investigate further.",
+        "metadata": {}
     }
 ]

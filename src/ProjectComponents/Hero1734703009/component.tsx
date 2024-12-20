@@ -1,3 +1,4 @@
+
 import React from 'react';
 import * as ethers from 'ethers';
 
@@ -5,7 +6,7 @@ const contractAddress = '0x1625d8B9A57c747515566b52Fe3aE1277b98567b';
 const chainId = 17000;
 
 const abi = [
-  "function createGame(bytes32 _wordHash) external payable",
+  "function createGame() external payable",
   "function acceptGame(uint256 _gameId) external payable",
   "function makeGuess(uint256 _gameId, string calldata _guess) external",
   "function games(uint256) public view returns (address creator, address player, uint256 betAmount, bytes32 wordHash, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
@@ -19,7 +20,7 @@ const WordleBetGame: React.FC = () => {
   const [betAmount, setBetAmount] = React.useState<string>('');
   const [guess, setGuess] = React.useState<string>('');
   const [gameStatus, setGameStatus] = React.useState<string>('');
-  const [playerGuesses, setPlayerGuesses] = React.useState<Array<{word: string, result: number[]}>>([]); // Changed to match contract struct
+  const [playerGuesses, setPlayerGuesses] = React.useState<Array<{word: string, result: number[]}>>([]);
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
@@ -69,7 +70,6 @@ const WordleBetGame: React.FC = () => {
       return;
     }
     try {
-      // Input validation for betAmount
       if (!/^\d+(\.\d+)?$/.test(betAmount)) {
         setGameStatus('Invalid bet amount. Please use a period as the decimal separator.');
         return;
@@ -102,7 +102,6 @@ const WordleBetGame: React.FC = () => {
       }
       setGameStatus(errorMessage);
       
-      // Log additional details
       console.log('Contract address:', contractAddress);
       console.log('Bet amount:', betAmount);
       console.log('Signer address:', await signer.getAddress());
@@ -140,23 +139,21 @@ const WordleBetGame: React.FC = () => {
       return;
     }
     try {
-      // Validate guess length
       if (guess.length !== 5) {
         setGameStatus('Guess must be exactly 5 letters!');
         return;
       }
 
       const estimatedGas = await executeWithRetry(() => 
-        contract.estimateGas.submitGuess(gameId, guess.toLowerCase())
+        contract.estimateGas.makeGuess(gameId, guess.toLowerCase())
       );
       const gasWithBuffer = estimatedGas.mul(120).div(100);
       const tx = await executeWithRetry(() => 
-        contract.submitGuess(gameId, guess.toLowerCase(), { gasLimit: gasWithBuffer })
+        contract.makeGuess(gameId, guess.toLowerCase(), { gasLimit: gasWithBuffer })
       );
       await tx.wait();
       setGameStatus('Guess submitted successfully!');
       
-      // Update guesses display
       await updateGameGuesses();
       setGuess('');
     } catch (error) {
@@ -186,12 +183,10 @@ const WordleBetGame: React.FC = () => {
       const game = await contract.games(gameId);
       const status = `
         Creator: ${game.creator}
-        Challenger: ${game.challenger || 'Not joined yet'}
+        Challenger: ${game.player || 'Not joined yet'}
         Bet Amount: ${ethers.utils.formatEther(game.betAmount)} ETH
-        Creator Attempts: ${game.creatorAttempts.toString()}
-        Challenger Attempts: ${game.challengerAttempts.toString()}
         Active: ${game.isActive}
-        Completed: ${game.isCompleted}
+        Completed: ${game.isFinished}
         Winner: ${game.winner || 'No winner yet'}
       `;
       setGameStatus(status);
@@ -202,7 +197,6 @@ const WordleBetGame: React.FC = () => {
     }
   };
 
-  // Render color squares for guess results
   const renderGuessResult = (result: number[]) => {
     return (
       <div className="flex gap-1">

@@ -324,5 +324,13 @@
         "metadata": {
             "component_id": "Hero1734703009"
         }
+    },
+    {
+        "id": "9638fad2-c9c7-4fc0-8e52-ab2422d2399c",
+        "timestamp": "2024-12-20T14:14:46.186628Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "You do not need to provide the word hash yourself. The contract automatically selects and hashes the word for you. Players just interact with the game by submitting their guesses and the contract handles the rest. There's no user input required for the word hash.",
+        "metadata": {}
     }
 ]

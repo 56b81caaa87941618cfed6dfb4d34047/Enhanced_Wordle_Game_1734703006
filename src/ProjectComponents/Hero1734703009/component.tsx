@@ -300,5 +300,4 @@ const WordleBetGame: React.FC = () => {
     </div>
   );
 };
-
 export default WordleBetGame;

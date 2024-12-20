@@ -21,6 +21,7 @@ const WordleBetGame: React.FC = () => {
   const [betAmount, setBetAmount] = React.useState<string>('');
   const [guess, setGuess] = React.useState<string>('');
   const [gameStatus, setGameStatus] = React.useState<string>('');
+  const [playerGuesses, setPlayerGuesses] = React.useState<Array<{guess: string, correctness: string}>>([]);
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
@@ -109,6 +110,11 @@ const WordleBetGame: React.FC = () => {
       const tx = await executeWithRetry(() => contract.makeGuess(gameId, guess, { gasLimit: gasWithBuffer }));
       await tx.wait();
       setGameStatus('Guess submitted successfully!');
+      
+      // Update player guesses
+      const updatedGuesses = [...playerGuesses, { guess, correctness: 'Pending' }];
+      setPlayerGuesses(updatedGuesses);
+      setGuess('');
     } catch (error) {
       console.error('Error making guess:', error);
       setGameStatus('Failed to submit guess. Check console for details.');
@@ -119,10 +125,16 @@ const WordleBetGame: React.FC = () => {
     if (!contract) {
       await connectWallet();
       return;
-    }
     try {
       const game = await contract.games(gameId);
       setGameStatus(`Creator: ${game.creator}, Player: ${game.player}, Bet Amount: ${ethers.utils.formatEther(game.betAmount)} ETH, Is Active: ${game.isActive}, Is Finished: ${game.isFinished}, Winner: ${game.winner}`);
+      
+      // Update player guesses with correctness
+      const updatedGuesses = playerGuesses.map((guessObj, index) => ({
+        ...guessObj,
+        correctness: index === 0 ? game.creatorGuess : game.playerGuess
+      }));
+      setPlayerGuesses(updatedGuesses);
     } catch (error) {
       console.error('Error getting game status:', error);
       setGameStatus('Failed to get game status. Check console for details.');
@@ -202,10 +214,20 @@ const WordleBetGame: React.FC = () => {
           />
           <button onClick={getGameStatus} className="w-full bg-purple-500 text-white p-2 rounded hover:bg-purple-600">Get Status</button>
         </div>
-
         <div className="mt-5 p-3 bg-gray-100 rounded">
           <h2 className="text-xl font-semibold mb-2">Game Status:</h2>
           <p>{gameStatus}</p>
+        </div>
+
+        <div className="mt-5 p-3 bg-gray-100 rounded">
+          <h2 className="text-xl font-semibold mb-2">Player Guesses:</h2>
+          {playerGuesses.map((guessObj, index) => (
+            <div key={index} className="flex items-center mb-2">
+              <i className={`bx ${guessObj.correctness === 'Correct' ? 'bx-check text-green-500' : 'bx-x text-red-500'} mr-2`}></i>
+              <span>{guessObj.guess}</span>
+              <span className="ml-2 text-sm text-gray-500">({guessObj.correctness})</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -301,4 +301,4 @@ const WordleBetGame: React.FC = () => {
   );
 };
 
-export { Footer as WordleBetGame };
+export { WordleBetGame as component };

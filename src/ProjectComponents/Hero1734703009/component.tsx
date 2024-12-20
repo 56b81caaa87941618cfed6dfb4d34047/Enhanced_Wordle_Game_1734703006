@@ -25,7 +25,7 @@ const abi = [
   "function games(uint256) public view returns (address creator, address player, uint256 betAmount, bytes32 wordHash, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
 ];
 
-export const WordleBetGame: React.FC = () => {
+const WordleBetGame: React.FC = () => {
   const [provider, setProvider] = React.useState<ethers.providers.Web3Provider | null>(null);
   const [signer, setSigner] = React.useState<ethers.Signer | null>(null);
   const [contract, setContract] = React.useState<ethers.Contract | null>(null);

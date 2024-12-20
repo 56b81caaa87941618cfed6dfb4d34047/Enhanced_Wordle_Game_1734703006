@@ -781,5 +781,15 @@
         "source": "base_assistant",
         "content": "I understand the issue now. The smart contract should automatically select the word from the predefined list and not require a word hash from the user. I will update the createGame function in the smart contract and adjust the frontend accordingly.\n\nPlease select `Hero1734703009` to make these changes.",
         "metadata": {}
+    },
+    {
+        "id": "ea8d4a6d-cfec-4210-a3a9-feaf7d037866",
+        "timestamp": "2024-12-20T14:51:21.650417Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "are you doing it?",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

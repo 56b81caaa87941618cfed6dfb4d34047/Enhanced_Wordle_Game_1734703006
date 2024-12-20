@@ -71,11 +71,11 @@ const WordleBetGame: React.FC = () => {
     try {
       // No need for wordHash parameter as the contract selects the word
       const estimatedGas = await executeWithRetry(() => 
-        contract.estimateGas.createGame({ value: ethers.utils.parseEther(betAmount) })
+        contract.estimateGas.createGame({ value: ethers.utils.parseUnits(betAmount, 'ether') })
       );
       const gasWithBuffer = estimatedGas.mul(120).div(100);
       const tx = await executeWithRetry(() => 
-        contract.createGame({ value: ethers.utils.parseEther(betAmount), gasLimit: gasWithBuffer })
+        contract.createGame({ value: ethers.utils.parseUnits(betAmount, 'ether'), gasLimit: gasWithBuffer })
       );
       const receipt = await tx.wait();
       

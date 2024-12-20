@@ -300,4 +300,5 @@ const WordleBetGame: React.FC = () => {
     </div>
   );
 };
-export default WordleBetGame;
+
+export { Footer as WordleBetGame };

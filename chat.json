@@ -556,5 +556,15 @@
         "source": "base_assistant",
         "content": "I've adjusted the `createGame` function to properly format the `betAmount` value. Please check if the issue is resolved now. If the problem persists, it might be related to the backend or smart contract implementation.",
         "metadata": {}
+    },
+    {
+        "id": "44e76471-4fcc-4cd5-9358-d397990b2db1",
+        "timestamp": "2024-12-20T14:35:05.461467Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "keeps failing",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

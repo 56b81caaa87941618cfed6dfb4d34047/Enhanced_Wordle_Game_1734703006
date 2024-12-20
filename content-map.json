@@ -1,0 +1,64 @@
+{
+    "name": "example",
+    "prefix": "%#PLACEHOLDER",
+    "placeholderMappings": {
+        "Blank": [],
+        "Header": [
+            "APPLICATION_NAME"
+        ],
+        "Hero": [
+            "HERO_HEADING_TEXT",
+            "HERO_SUBHEADING_TEXT"
+        ],
+        "Footer": [
+            "APPLICATION_NAME",
+            "FOOTER_TEXT"
+        ],
+        "Newsletter": [
+            "NEWSLETTER_HEADING_TEXT",
+            "NEWSLETTER_SUBHEADING_TEXT",
+            "NEWSLETTER_BUTTON_TEXT"
+        ],
+        "About": [
+            "ABOUT_MISSION_STATMENT",
+            "ABOUT_VISION_STATEMENT",
+            "ABOUT_VALUES_STATEMENT"
+        ],
+        "Contact": [
+            "CONTACT_HEADER_TEXT",
+            "CONTACT_SUBHEADER_TEXT"
+        ],
+        "FAQ": [
+            "FAQ_HEADER_TEXT",
+            "FAQ_SUBHEADER_TEXT",
+            "FAQ_QUESTION_01_TEXT",
+            "FAQ_ANSWER_01_TEXT",
+            "FAQ_QUESTION_02_TEXT",
+            "FAQ_ANSWER_02_TEXT",
+            "FAQ_QUESTION_03_TEXT",
+            "FAQ_ANSWER_03_TEXT"
+        ]
+    },
+    "placeholders": {
+        "APPLICATION_NAME": "WordlePlus",
+        "HERO_HEADING_TEXT": "Elevate Your Word Game",
+        "HERO_SUBHEADING_TEXT": "Experience Wordle like never before with WordlePlus - more challenges, more fun, more words!",
+        "FOOTER_TEXT": "\u00a9 2023 WordlePlus. All rights reserved. Enhance your vocabulary daily!",
+        "NEWSLETTER_HEADING_TEXT": "Stay Sharp with WordlePlus",
+        "NEWSLETTER_SUBHEADING_TEXT": "Subscribe for daily word challenges and vocabulary boosters",
+        "NEWSLETTER_BUTTON_TEXT": "Join the Word Revolution",
+        "ABOUT_MISSION_STATMENT": "To make word puzzles more engaging, challenging, and educational for players of all levels.",
+        "ABOUT_VISION_STATEMENT": "To be the go-to platform for word enthusiasts seeking to improve their vocabulary and problem-solving skills.",
+        "ABOUT_VALUES_STATEMENT": "We value continuous learning, community engagement, and the joy of language exploration.",
+        "CONTACT_HEADER_TEXT": "Get in Touch",
+        "CONTACT_SUBHEADER_TEXT": "Have a question or suggestion? We'd love to hear from you!",
+        "FAQ_QUESTION_01_TEXT": "How is WordlePlus different from regular Wordle?",
+        "FAQ_ANSWER_01_TEXT": "WordlePlus offers multiple difficulty levels, longer words, themes, and daily vocabulary lessons to enhance your word game experience.",
+        "FAQ_QUESTION_02_TEXT": "Can I play more than one puzzle a day?",
+        "FAQ_ANSWER_02_TEXT": "Yes! WordlePlus offers unlimited puzzles, allowing you to play as much as you want, whenever you want.",
+        "FAQ_QUESTION_03_TEXT": "Is WordlePlus free to play?",
+        "FAQ_ANSWER_03_TEXT": "WordlePlus offers both free and premium versions. The free version includes daily puzzles, while the premium unlocks additional features and unlimited play.",
+        "FAQ_HEADER_TEXT": "Frequently Asked Questions",
+        "FAQ_SUBHEADER_TEXT": "Got questions? We've got answers. Check out our FAQ section for more information about WordlePlus."
+    }
+}

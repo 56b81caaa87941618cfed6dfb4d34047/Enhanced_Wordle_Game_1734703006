@@ -505,5 +505,15 @@
         "source": "base_assistant",
         "content": "I've fixed the code now. Please verify if it resolves the issues. If you have any more problems or need further assistance, feel free to let me know!",
         "metadata": {}
+    },
+    {
+        "id": "31803ef4-e0f2-4fb5-9b18-0e22c3095d8e",
+        "timestamp": "2024-12-20T14:34:08.513458Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "rror creating game: Error: invalid arrayify value (argument=\"value\", value={\"value\":{\"_hex\":\"0x470de4df820000\",\"_isBigNumber\":true}}, code=INVALID_ARGUMENT, version=bytes/5.0.0-beta.138)     at _Logger.makeError (ethers.js?v=c57c2b97:2910:19)     at _Logger.throwError (ethers.js?v=c57c2b97:2919:16)     at _Logger.throwArgumentError (ethers.js?v=c57c2b97:2922:17)     at arrayify (ethers.js?v=c57c2b97:3115:17)     at FixedBytesCoder.encode (ethers.js?v=c57c2b97:5842:16)     at ethers.js?v=c57c2b97:5673:13     at Array.forEach (<anonymous>)     at pack (ethers.js?v=c57c2b97:5663:10)     at TupleCoder.encode (ethers.js?v=c57c2b97:6338:12)     at _AbiCoder.encode (ethers.js?v=c57c2b97:6408:11)     at _Interface._encodeParams (ethers.js?v=c57c2b97:6631:27)     at _Interface.encodeFunctionData (ethers.js?v=c57c2b97:6654:12)     at ethers.js?v=c57c2b97:7244:32     at Generator.next (<anonymous>)     at fulfilled (ethers.js?v=c57c2b97:7148:24) is this really a frontend rpoblem or is it a backend one?",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

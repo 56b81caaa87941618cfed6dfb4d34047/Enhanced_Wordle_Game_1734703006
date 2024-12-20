@@ -296,5 +296,15 @@
         "source": "base_assistant",
         "content": "A word hash is a cryptographic hash of a word. It transforms the word into a fixed-size string of characters, usually in hexadecimal format, using a hash function like keccak256 in Solidity. This process ensures security and integrity by making it difficult to reverse-engineer the original word from the hash. This can be useful in smart contracts to securely store and verify the contents without revealing the actual word.",
         "metadata": {}
+    },
+    {
+        "id": "6782c62e-62c6-435e-b381-9d0bf254a8c3",
+        "timestamp": "2024-12-20T14:14:16.750072Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "but it is not the user that chooses the word right?",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

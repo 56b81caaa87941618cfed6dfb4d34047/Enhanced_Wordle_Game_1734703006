@@ -6,7 +6,7 @@ const contractAddress = '0x1625d8B9A57c747515566b52Fe3aE1277b98567b';
 const chainId = 17000;
 
 const abi = [
-  "function createGame() external payable",
+  "function createGame(bytes32 _wordHash) external payable",
   "function acceptGame(uint256 _gameId) external payable",
   "function makeGuess(uint256 _gameId, string calldata _guess) external",
   "function games(uint256) public view returns (address creator, address player, uint256 betAmount, bytes32 wordHash, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
@@ -21,6 +21,12 @@ const WordleBetGame: React.FC = () => {
   const [guess, setGuess] = React.useState<string>('');
   const [gameStatus, setGameStatus] = React.useState<string>('');
   const [playerGuesses, setPlayerGuesses] = React.useState<Array<{word: string, result: number[]}>>([]);
+  const [createdGames, setCreatedGames] = React.useState<{[key: string]: string}>({});
+
+  const wordList = [
+    'APPLE', 'BEACH', 'CHAIR', 'DANCE', 'EAGLE', 'FANCY', 'GRAPE', 'HOUSE', 'IMAGE', 'JUICE',
+    'KITE', 'LEMON', 'MOUSE', 'NIGHT', 'OCEAN', 'PIANO', 'QUEEN', 'RIVER', 'SMILE', 'TABLE'
+  ];
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
@@ -64,6 +70,10 @@ const WordleBetGame: React.FC = () => {
     }
   };
 
+  const getRandomWord = () => {
+    return wordList[Math.floor(Math.random() * wordList.length)];
+  };
+
   const createGame = async () => {
     if (!contract || !signer) {
       await connectWallet();
@@ -75,20 +85,25 @@ const WordleBetGame: React.FC = () => {
         return;
       }
 
+      const selectedWord = getRandomWord();
+      const wordHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(selectedWord));
+
       const parsedBetAmount = ethers.utils.parseEther(betAmount);
       const estimatedGas = await executeWithRetry(() => 
-        contract.estimateGas.createGame({ value: parsedBetAmount })
+        contract.estimateGas.createGame(wordHash, { value: parsedBetAmount })
       );
       const gasWithBuffer = estimatedGas.mul(120).div(100);
       const tx = await executeWithRetry(() => 
-        contract.createGame({ value: parsedBetAmount, gasLimit: gasWithBuffer })
+        contract.createGame(wordHash, { value: parsedBetAmount, gasLimit: gasWithBuffer })
       );
       const receipt = await tx.wait();
       
       const event = receipt.events?.find(e => e.event === 'GameCreated');
       if (event) {
-        setGameId(event.args.gameId.toString());
-        setGameStatus(`Game created successfully! Game ID: ${event.args.gameId.toString()}`);
+        const newGameId = event.args.gameId.toString();
+        setGameId(newGameId);
+        setCreatedGames(prev => ({ ...prev, [newGameId]: selectedWord }));
+        setGameStatus(`Game created successfully! Game ID: ${newGameId}`);
       } else {
         throw new Error('GameCreated event not found in transaction receipt');
       }
@@ -101,11 +116,6 @@ const WordleBetGame: React.FC = () => {
         errorMessage += 'Unknown error occurred';
       }
       setGameStatus(errorMessage);
-      
-      console.log('Contract address:', contractAddress);
-      console.log('Bet amount:', betAmount);
-      console.log('Signer address:', await signer.getAddress());
-      console.log('Network:', await signer.provider.getNetwork());
     }
   };
 
@@ -145,11 +155,11 @@ const WordleBetGame: React.FC = () => {
       }
 
       const estimatedGas = await executeWithRetry(() => 
-        contract.estimateGas.makeGuess(gameId, guess.toLowerCase())
+        contract.estimateGas.makeGuess(gameId, guess.toUpperCase())
       );
       const gasWithBuffer = estimatedGas.mul(120).div(100);
       const tx = await executeWithRetry(() => 
-        contract.makeGuess(gameId, guess.toLowerCase(), { gasLimit: gasWithBuffer })
+        contract.makeGuess(gameId, guess.toUpperCase(), { gasLimit: gasWithBuffer })
       );
       await tx.wait();
       setGameStatus('Guess submitted successfully!');
@@ -167,8 +177,9 @@ const WordleBetGame: React.FC = () => {
     
     try {
       const address = await signer.getAddress();
-      const guesses = await contract.getGameGuesses(gameId, address);
-      setPlayerGuesses(guesses);
+      const game = await contract.games(gameId);
+      const guesses = game.creator === address ? [game.creatorGuess] : [game.playerGuess];
+      setPlayerGuesses(guesses.map(g => ({ word: g, result: [] })));
     } catch (error) {
       console.error('Error updating guesses:', error);
     }
@@ -188,6 +199,7 @@ const WordleBetGame: React.FC = () => {
         Active: ${game.isActive}
         Completed: ${game.isFinished}
         Winner: ${game.winner || 'No winner yet'}
+        ${createdGames[gameId] ? `Secret Word: ${createdGames[gameId]}` : ''}
       `;
       setGameStatus(status);
       await updateGameGuesses();

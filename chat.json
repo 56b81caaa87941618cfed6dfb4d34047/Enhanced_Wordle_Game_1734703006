@@ -607,5 +607,15 @@
         "source": "base_assistant",
         "content": "I've ensured that the `betAmount` is properly parsed using `ethers.utils.parseEther`. Please verify if the issue is resolved now. If it continues, we may need to look further into the backend or smart contract.",
         "metadata": {}
+    },
+    {
+        "id": "8f618506-78ca-4d23-bfa5-877f725dcad4",
+        "timestamp": "2024-12-20T14:39:26.944611Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "it is weird because the first time I hit nothing happens is on the 2 one that says somethin at it ways failed",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]

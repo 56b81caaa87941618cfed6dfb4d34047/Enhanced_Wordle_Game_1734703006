@@ -244,6 +244,7 @@ const WordleBetGame: React.FC = () => {
         </div>
       </div>
     </div>
+    )
 };
 
 export { WordleBetGame as component };

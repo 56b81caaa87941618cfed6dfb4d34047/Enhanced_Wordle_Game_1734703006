@@ -1,4 +1,17 @@
+import React from 'react';
+import * as ethers from 'ethers';
 
+const contractAddress = '0x1625d8B9A57c747515566b52Fe3aE1277b98567b';
+const chainId = 17000;
+
+const abi = [
+  "function createGame(bytes32 _wordHash) external payable",
+  "function acceptGame(uint256 _gameId) external payable",
+  "function makeGuess(uint256 _gameId, string calldata _guess) external",
+  "function games(uint256) public view returns (address creator, address player, uint256 betAmount, bytes32 wordHash, string memory creatorGuess, string memory playerGuess, bool isActive, bool isFinished, address winner)"
+];
+
+const WordleBetGame: React.FC = () => {
 import React from 'react';
 import * as ethers from 'ethers';
 
@@ -231,7 +244,6 @@ const WordleBetGame: React.FC = () => {
         </div>
       </div>
     </div>
-  );
 };
 
 export { WordleBetGame as component };

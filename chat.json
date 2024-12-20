@@ -6,5 +6,48 @@
         "source": "base_assistant",
         "content": "Welcome to your new project! I can help you edit it however you want. What would you like to do?",
         "metadata": {}
+    },
+    {
+        "id": "d8e8f781-f61b-44b2-95b6-c0854338cc94",
+        "timestamp": "2024-12-20T14:03:33.030593Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "I want you to prepare this smart contract on the right version",
+        "metadata": {
+            "component_id": "Footer1734703009"
+        }
+    },
+    {
+        "id": "7cef4270-db2d-4a3a-a08d-2ae7749bf27f",
+        "timestamp": "2024-12-20T14:03:35.576578Z",
+        "role": "tool_call",
+        "source": "base_assistant",
+        "content": null,
+        "metadata": {
+            "id": "call_ysEsdn5h5BoPkIqHWoDLfAtp",
+            "function": {
+                "arguments": "{}",
+                "name": "TransferToSmartContractAssistant"
+            },
+            "type": "function"
+        }
+    },
+    {
+        "id": "2ff5f49c-2cab-4455-a082-c0c6fb298cac",
+        "timestamp": "2024-12-20T14:03:35.641103Z",
+        "role": "tool_result",
+        "source": "TransferToSmartContractAssistant",
+        "content": "Conversation switched to smart_contract_assistant. Adopt the persona of smart_contract_assistant immediately.",
+        "metadata": {
+            "tool_call_id": "call_ysEsdn5h5BoPkIqHWoDLfAtp"
+        }
+    },
+    {
+        "id": "ae4d73a2-4e5a-478f-8b5a-d273ffed5d49",
+        "timestamp": "2024-12-20T14:03:36.548082Z",
+        "role": "assistant",
+        "source": "smart_contract_assistant",
+        "content": "Could you please provide more details about the smart contract you want to prepare? Specifically, I need to know the functionalities and features you'd like it to have.",
+        "metadata": {}
     }
 ]

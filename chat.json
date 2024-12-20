@@ -306,5 +306,13 @@
         "metadata": {
             "component_id": "Hero1734703009"
         }
+    },
+    {
+        "id": "81797a99-6ac4-408b-9760-c0ed2f341a66",
+        "timestamp": "2024-12-20T14:14:19.482919Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "Correct, in the WordleBet contract, the word is randomly selected from a predefined list of words by the contract itself, and not chosen by the user. The contract generates a random index to pick a word from this list and hashes the word to keep it secure.",
+        "metadata": {}
     }
 ]

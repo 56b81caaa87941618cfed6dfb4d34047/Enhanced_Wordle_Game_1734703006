@@ -599,5 +599,13 @@
         "metadata": {
             "tool_call_id": "call_UrKlLygVCzLfcLROLseHAAKy"
         }
+    },
+    {
+        "id": "30d0f386-6459-4f70-9ed3-76d91af61b0c",
+        "timestamp": "2024-12-20T14:35:20.460701Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "I've ensured that the `betAmount` is properly parsed using `ethers.utils.parseEther`. Please verify if the issue is resolved now. If it continues, we may need to look further into the backend or smart contract.",
+        "metadata": {}
     }
 ]

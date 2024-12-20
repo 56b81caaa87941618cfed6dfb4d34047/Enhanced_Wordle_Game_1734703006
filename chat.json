@@ -686,5 +686,13 @@
         "metadata": {
             "component_id": "Hero1734703009"
         }
+    },
+    {
+        "id": "3c8ffcf6-cb41-4dd5-bf61-2cc56d047fb1",
+        "timestamp": "2024-12-20T14:42:30.495498Z",
+        "role": "assistant",
+        "source": "base_assistant",
+        "content": "It seems like the `betAmount` value might not be properly parsed or formatted before being used in the contract call. I'll ensure that the `betAmount` is correctly converted to a BigNumber before it's used. \n\nPlease select `Hero1734703009` again and I'll make the necessary adjustments.",
+        "metadata": {}
     }
 ]

@@ -202,5 +202,15 @@
         "source": "smart_contract_assistant",
         "content": "The WordleBet contract has been successfully deployed to Holesky at address 0x1625d8B9A57c747515566b52Fe3aE1277b98567b. The frontend interface for the game has also been generated. Is there anything else you would like to do?",
         "metadata": {}
+    },
+    {
+        "id": "11d0862c-13cf-40e3-a08d-3208ce53c878",
+        "timestamp": "2024-12-20T14:12:11.568692Z",
+        "role": "user",
+        "source": "web_client",
+        "content": "generate a frontedn for this on the footer",
+        "metadata": {
+            "component_id": "Hero1734703009"
+        }
     }
 ]
